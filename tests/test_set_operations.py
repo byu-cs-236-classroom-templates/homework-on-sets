@@ -115,8 +115,8 @@ def test_intersection_invalid_element_type():
 # positive tests: what should happen
 def test_cartesian_product__v1_positive():
     # Function inputs
-    A: set = {1, 2}
-    B: set = {'a', 'b'}
+    A: set[int] = {1, 2}
+    B: set[str] = {'a', 'b'}
     
     # Expected output
     expected: set[tuple] = {(1, 'a'), (1, 'b'), (2, 'a'), (2, 'b')}
@@ -179,8 +179,8 @@ def test_cartesian_product_v1_output_type():
 # positive tests: what should happen
 def test_cartesian_product__v2_positive():
     # Function inputs
-    A: set = {1, 2}
-    B: set = {'a', 'b'}
+    A: set[int] = {1, 2}
+    B: set[str] = {'a', 'b'}
     
     # Expected output
     expected: set[tuple] = {(1, 'a'), (1, 'b'), (2, 'a'), (2, 'b')}
@@ -201,7 +201,7 @@ def test_cartesian_product_v2_negative():
     assert cartesian_product_version_2(A, B) != incorrect_result
 
 # TypeError tests: when invalid input should raise an error
-def test_cartesian_product_v2_invalid_input_type_2():
+def test_cartesian_product_v2_invalid_input_type_1():
     # one input is the wrong type
     A: str = "not a set"
     B: set[int] = {1, 2}
@@ -228,7 +228,7 @@ def test_cartesian_product_v2_output_type():
     # Check that the result is a set
     assert isinstance(result, set)
 
-    # Check that all elements are tuples
+    # Check that all elements in the resulting set are tuples
     for item in result:
         assert isinstance(item, tuple)
 

@@ -19,22 +19,22 @@ In this assignment, you'll review mathematical set operations and learn how to w
 ## ✅ Your Tasks
 
 1. Examine the functions in `src/set_operations.py`
-2. Understand how the the provided test cases in `tests/test_set_operations_.py` relate to
+2. Understand how test cases in `tests/test_set_operations_.py` relate to
    - definitions of mathematical set operations
    - type checks
 3. Run the tests using both:
    - `pytest` in the **integrated terminal**
-   - The **Testing panel** in VS Code
+   - The **testing panel** in VS Code
 
 ## 📥 1. Clone the Starter Repository
-Clone the repository. If you can't remember the steps from Project0, use your favorite LLM to clone the repository into `VSCode`. The basic steps are: click **Clone Repository**, paste your repo URL, and choose `CS236/` as the destination.
+Clone the repository. If you can't remember the steps from Project0, use your favorite LLM to clone the repository into `VSCode`. The basic steps are: click **Clone Repository**, paste your repo URL, and choose `CS236/` as the destination folder.
 
 
 ---
 
 ## 📁 2. Explore Project Structure
 
-The root folder is the `CS236` directory you created earlier. Inside that folder is another folder named something like `homework1`. The precise name might vary, but you'll see the name `homework1` somewhere in the name. Inside the `homework1` folder are a handful of other files and folders. The general structure is given by
+The root folder is the `CS236` directory you created earlier. Inside that folder is another folder named something like `homework1`. The precise name might vary, but you'll see the name `homework1` somewhere in the name. Inside the `homework1` folder are a handful of other files and folders. The general structure of the files and folders is 
 
 ```
 homework1/
@@ -145,7 +145,7 @@ Our goal is to have you **write tests before you begin programming**, but we und
 
 ### Overview
 There are three types of unit tests that we'll consider in this class:
-- a **positive test* provides evidence that the _code produces the correct result_ for valid input because the test is based on a known math fact or expected behavior 
+- a **positive test** provides evidence that the _code produces the correct result_ for valid input because the test is based on a known math fact or expected behavior 
 - a **negative test** provides evidence that the _code does not produce an incorrect result_, and is used to detec logical errors or incorrect outcomes in your code
 - a **type-checking test** confirms that a function you've written _raises the correct kind of error_ when given input of the wrong type, and is used to "enforce contracts" so that your code only operates on they kinds of inputs you expect
 
@@ -188,8 +188,7 @@ checks whether the actual result of `union(A, B)` is equal to the expected resul
 
 ### ❌ Negative Test
 
-A negative test checks that the function **does not** return an incorrect result. Let's make up something inccorect by defining $A=\{1\}$ and $B=\{1,2\}$, and then noting that
-$$ A\cup B \neq \{1\}$$
+A negative test checks that the function **does not** return an incorrect result. Let's make up something inccorect by defining $A=\{1\}$ and $B=\{1,2\}$, and then noting that $ A\cup B \neq \{1\}$.
 
 ```python
 def test_union_negative():
@@ -230,7 +229,7 @@ Notice the completely different structure of the actual test. It does not use an
 with pytest.raises(TypeError):
     union(A, B)
 ```
-### 🤖 Prompt for Your Assistant
+### 🤖 Prompt for Your AI Assistant
 
 ```text
 What does 
@@ -365,6 +364,21 @@ Fix the code that causes the intersection function to fail the tests. Rerun the 
 
 In this section, you’ll analyze **two incorrect implementations** of the Cartesian product function. The corresponding tests are designed to help you **discover and explain the errors** based on your mathematical understanding.
 
+Before beginning, note that the sets that are input to the Cartesian product implementations can have elements of _any_ type, not just integers.
+
+### 🤖 Prompt for Your AI Assistant
+
+```text
+What does the following line do?
+
+    from typing import Any
+
+What does "Any" mean in the function definition
+
+    def cartesian_product_version_1(a: set[Any], b: set[Any]) -> set[tuple[Any,Any]]:
+
+```
+
 ---
 
 ### ❌ Version 1: Repeats `a` Instead of Using `b`
@@ -374,11 +388,11 @@ return {(x, y) for x in a for y in a}
 ```
 
 **What’s wrong?**  
-This version loops over `a` twice, producing \( A \times A \) instead of \( A \times B \).
+This version loops over `a` twice, producing tuples fro the set $ A \times A $ instead of tuples from the set $A \times B $.
 
 **Test coverage:**
 
-- ✅ **Positive test** fails because the output is missing combinations with elements from `B`.
+- ✅ **Positive test** fails because the output is missing combinations with elements from $B$.
 - ❌ **Negative test** helps confirm that incorrect logic is producing false positives (e.g., `(1, 1)` instead of `(1, 2)`).
 - ⚠️ **TypeError tests** verify that the function properly rejects non-set inputs.
 - 📏 **Output type test** confirms the function returns a set of tuples of length 2 — even though they’re the wrong tuples!
