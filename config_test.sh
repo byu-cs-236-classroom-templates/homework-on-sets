@@ -1,9 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
 
-if [ $# -ne 1 ]; then
-    echo "usage: sh config_test.sh #"
-    exit 1
-fi
+PATTERN="${1:-test_*}"
+FILE="tests/test_integration_tests.py"
 
-printf "[pytest]\npython_files = *$1*" > pytest.ini
-pip install ".[classroom]"
+pytest -q "$FILE" -k "$PATTERN"
