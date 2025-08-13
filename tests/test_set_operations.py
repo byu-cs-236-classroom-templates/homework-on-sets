@@ -1,13 +1,12 @@
 # tests/test_set_operations.py
-from homework1.set_operations import union, intersection 
-from homework1.set_operations import cartesian_product_version_1, cartesian_product_version_2   
+from homework1.set_operations import union, intersection, cartesian_product
 import pytest
 
 #################
 ## Union Tests ##
 #################
 # positive tests: what should happen
-def test_union_positive():
+def test_union_positive() -> None:
     # Function inputs
     A: set[int] = {1,2}
     B: set[int] = {2,3}
@@ -19,7 +18,7 @@ def test_union_positive():
     assert union(A, B) == expected
 
 # negative tests: what should not happen
-def test_union_negative():
+def test_union_negative() -> None:
     # Function inputs
     A: set[int] = {1}
     B: set[int] = {2}
@@ -31,7 +30,7 @@ def test_union_negative():
     assert union(A, B) != incorrect_result
 
 # TypeError tests: when invalid input should raise an error
-def test_union_invalid_input_type_1():
+def test_union_invalid_input_type_1() -> None:
     # one input is the wrong type
     A: str = "not a set"
     B: set[int] = {1,2}
@@ -39,7 +38,7 @@ def test_union_invalid_input_type_1():
     with pytest.raises(TypeError):
         union(A, B)
 
-def test_union_invalid_input_type_2():
+def test_union_invalid_input_type_2() -> None:
     # one input is the wrong type
     A: set[int] = {1,2}
     B: str = "not a set"
@@ -47,7 +46,7 @@ def test_union_invalid_input_type_2():
     with pytest.raises(TypeError):
         union(A, B)
 
-def test_union_invalid_element_type():
+def test_union_invalid_element_type() -> None:
     # one input has an element that is not an int
     A: set[int] = {1, 2}
     B: set[int] = {2, "not an int"}
@@ -59,7 +58,7 @@ def test_union_invalid_element_type():
 ## Intersection Tests ##
 ######################## 
 # positive tests: what should happen
-def test_intersection_positive():
+def test_intersection_positive() -> None:
     # Function inputs
     A: set[int] = {1,2}
     B: set[int] = {2,3}
@@ -71,7 +70,7 @@ def test_intersection_positive():
     assert intersection(A, B) == expected
 
 # negative tests: what should not happen
-def test_intersection_negative():
+def test_intersection_negative() -> None:
     # Function inputs
     A: set[int] = {1}
     B: set[int] = {2}
@@ -83,7 +82,7 @@ def test_intersection_negative():
     assert intersection(A, B) != incorrect_result
 
 # TypeError tests: when invalid input should raise an error
-def test_intersection_invalid_input_type_1():
+def test_intersection_invalid_input_type_1() -> None:
     # one input is the wrong type
     A: str = "not a set"
     B: set[int] = {1,2}
@@ -91,7 +90,7 @@ def test_intersection_invalid_input_type_1():
     with pytest.raises(TypeError):
         intersection(A, B)
 
-def test_intersection_invalid_input_type_2():
+def test_intersection_invalid_input_type_2() -> None:
     # one input is the wrong type
     A: set[int] = {1,2}
     B: str = "not a set"
@@ -99,7 +98,7 @@ def test_intersection_invalid_input_type_2():
     with pytest.raises(TypeError):
         intersection(A, B)
 
-def test_intersection_invalid_element_type():
+def test_intersection_invalid_element_type() -> None:
     # one input has an element that is not an int
     A: set[int] = {1, 2}
     B: set[int] = {2, "not an int"}
@@ -110,10 +109,9 @@ def test_intersection_invalid_element_type():
 
 #############################
 ## Cartesian Product Tests ##
-##        Version 1        ##     
 #############################
 # positive tests: what should happen
-def test_cartesian_product__v1_positive():
+def test_cartesian_product_positive() -> None:
     # Function inputs
     A: set[int] = {1, 2}
     B: set[str] = {'a', 'b'}
@@ -122,10 +120,10 @@ def test_cartesian_product__v1_positive():
     expected: set[tuple] = {(1, 'a'), (1, 'b'), (2, 'a'), (2, 'b')}
     
     # Assert that the cartesian_product function works correctly
-    assert cartesian_product_version_1(A, B) == expected
+    assert cartesian_product(A, B) == expected
 
 # negative tests: what should not happen
-def test_cartesian_product_v1_negative():
+def test_cartesian_product_negative() -> None:
     # Function inputs
     A = {1}
     B = {2}
@@ -134,32 +132,32 @@ def test_cartesian_product_v1_negative():
     incorrect_result: set[tuple] = {(1, 1)} # This is incorrect because it should be {(1, 2)}       
 
     # Assert that the cartesian_product function does not work incorrectly
-    assert cartesian_product_version_1(A, B) != incorrect_result
+    assert cartesian_product(A, B) != incorrect_result
 
 # TypeError tests: when invalid input should raise an error
-def test_cartesian_product_v1_invalid_input_type_1():
+def test_cartesian_product_invalid_input_type_1() -> None:
     # one input is the wrong type
     A: str = "not a set"
     B: set[int] = {1, 2}
 
     with pytest.raises(TypeError):
-        cartesian_product_version_1(A, B)
+        cartesian_product(A, B)
 
-def test_cartesian_product_v1_invalid_input_type_2():
+def test_cartesian_product_invalid_input_type_2() -> None:
     # one input is the wrong type
     A: set[int] = {1, 2}
     B: str = "not a set"
 
     with pytest.raises(TypeError):
-        cartesian_product_version_1(A, B)
+        cartesian_product(A, B)
 
-def test_cartesian_product_v1_output_type():
+def test_cartesian_product_output_type() -> None:
     # Function inputs
     A: set[int] = {1, 2}
     B: set[str] = {'a', 'b'}
 
     # Call the cartesian_product function
-    result = cartesian_product_version_1(A, B)
+    result = cartesian_product(A, B)
 
     # Check that the result is a set
     assert isinstance(result, set)
@@ -172,66 +170,3 @@ def test_cartesian_product_v1_output_type():
     for item in result:
         assert len(item) == 2, f"Expected tuple of length 2, got {item}"
 
-#############################
-## Cartesian Product Tests ##
-##        Version 2        ##     
-#############################
-# positive tests: what should happen
-def test_cartesian_product__v2_positive():
-    # Function inputs
-    A: set[int] = {1, 2}
-    B: set[str] = {'a', 'b'}
-    
-    # Expected output
-    expected: set[tuple] = {(1, 'a'), (1, 'b'), (2, 'a'), (2, 'b')}
-    
-    # Assert that the cartesian_product function works correctly
-    assert cartesian_product_version_2(A, B) == expected
-
-# negative tests: what should not happen
-def test_cartesian_product_v2_negative():
-    # Function inputs
-    A = {1}
-    B = {2}
-
-    # Incorrect expected output
-    incorrect_result: set[tuple] = {(1, 1)} # This is incorrect because it should be {(1, 2)}       
-
-    # Assert that the cartesian_product function does not work incorrectly
-    assert cartesian_product_version_2(A, B) != incorrect_result
-
-# TypeError tests: when invalid input should raise an error
-def test_cartesian_product_v2_invalid_input_type_1():
-    # one input is the wrong type
-    A: str = "not a set"
-    B: set[int] = {1, 2}
-
-    with pytest.raises(TypeError):
-        cartesian_product_version_2(A, B)
-
-def test_cartesian_product_v2_invalid_input_type_2():
-    # one input is the wrong type
-    A: set[int] = {1, 2}
-    B: str = "not a set"
-
-    with pytest.raises(TypeError):
-        cartesian_product_version_2(A, B)
-
-def test_cartesian_product_v2_output_type():
-    # Function inputs
-    A: set[int] = {1, 2}
-    B: set[str] = {'a', 'b'}
-
-    # Call the cartesian_product function
-    result = cartesian_product_version_2(A, B)
-
-    # Check that the result is a set
-    assert isinstance(result, set)
-
-    # Check that all elements in the resulting set are tuples
-    for item in result:
-        assert isinstance(item, tuple)
-
-    # Check that all tuples have the correct length
-    for item in result:
-        assert len(item) == 2, f"Expected tuple of length 2, got {item}"

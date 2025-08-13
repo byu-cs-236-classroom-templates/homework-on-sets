@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=69.5.1"]
+requires = ["setuptools>=74.1.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -10,8 +10,28 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = []
 
-[tool.setuptools]
-package-dir = {"" = "src"}
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "mypy",
+  "ruff",
+  "pre-commit",
+]
 
-[tool.setuptools.packages.find]
-where = ["src"]
+classroom = [
+  "pytest",
+]
+
+[tool.ruff]
+lint.extend-select = ["I","FIX002", "TD001"]
+target-version = "py312"
+
+[tool.mypy]
+exclude = [
+   "(^|/)tests?/",
+]
+check_untyped_defs = true
+strict = true
+
+
+

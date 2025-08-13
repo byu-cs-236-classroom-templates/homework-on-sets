@@ -35,7 +35,7 @@ def intersection(a: set[int], b: set[int]) -> set[int]:
     return a | b
 
 # ❌ Incorrect implementation (repeats a)
-def cartesian_product_version_1(a: set[Any], b: set[Any]) -> set[tuple[Any,Any]]:
+def cartesian_product(a: set[Any], b: set[Any]) -> set[tuple[Any,Any]]:
     """
         Input: two sets of any type
         Output: a set of tuples representing the Cartesian product of the two sets
@@ -48,19 +48,3 @@ def cartesian_product_version_1(a: set[Any], b: set[Any]) -> set[tuple[Any,Any]]
     # Note: This implementation is incorrect because it uses the same set for both elements
     # It should use 'b' for the second element of the tuple
     return {(x, y) for x in a for y in a}
-
-# ❌ Incorrect implementation returns a set of sets instead of set of tuples
-def cartesian_product_version_2(a: set[Any], b: set[Any]) -> set:
-    """
-        Input: two sets of any type
-        Output: a set of tuples representing the Cartesian product of the two sets
-    """
-    # Check if inputs are sets
-    if not isinstance(a, set) or not isinstance(b, set):
-        raise TypeError("Arguments must be sets")
-    
-    # Return the Cartesian product of the two sets
-    # Note: This implementation is incorrect because it returns a set of sets instead of a set
-    # of tuples
-    # It should return tuples (x, y) where x is from 'a' and y is from 'b'
-    return {{x, y} for x in a for y in b}
