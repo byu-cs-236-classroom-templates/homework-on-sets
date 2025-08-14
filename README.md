@@ -26,7 +26,7 @@
   - [9.4 Fix the implementation for the intersection function](#94-fix-the-implementation-for-the-intersection-function)
 - [10. Cartesian Product Tests](#10-cartesian-product-tests)
 - [11. Integration Tests and GitHub Classroom Autograding](#11-integration-tests-and-github-classroom-autograding)
-  - [11.1 Viewing Results in GitHub Classroom](#111-viewing-results-in-github-classroom)
+  - [11.1 Viewing Results from GitHub Classroom Autograding](#111-viewing-results-from-github-classroom-autograding)
   - [11.2 Integration Test Buckets](#112-integration-test-buckets)
 
 ---
@@ -411,7 +411,7 @@ This semester, CS 236 will provide you the same integration tests that will be r
 - When you push your changes, GitHub Classroom will run the same integration tests remotely.
 - You can view the results of your tests in GitHub Classroom.
 
-### 11.1 Viewing Results in GitHub Classroom
+### 11.1 Viewing Results from GitHub Classroom Autograding
 Let's talk about how to view the results of the integration tests in GitHub Classroom. Once you've fixed the errors in the intersection and Cartesian product functions, run `pytest` and confirm that all tests pass. 
 
 **Push your repo to GitHub** using the steps shown in Project 0. Here are the steps for your review.
@@ -421,11 +421,17 @@ Let's talk about how to view the results of the integration tests in GitHub Clas
   3. Commit those changes (`git commit`)
   4. Push those commits to GitHub (`git push` or **Sync** in VS Code)
 
-**Navigate to GitHub** and open the repo for Homework 1. At the top of the webpage, click on _Actions_. That will take you to a page that shows a log of all the things that happened on GitHub after you've committed your repo.
+Once you’ve committed and pushed your code, GitHub Classroom will automatically run the `run-autograding-tests` workflow. You can check the results in **two ways**:  
 
-**Click on top entry**, which might start with something like `Merge branch main ...`.  That will take you to a page that includes the results of the autotests.
 
-**Review test results**. You should see a green check mark next to `run-autograding-tests` if your code passed all the tests. You can click on `run-autograding-tests` to see more information. Click on `Autograding Reporter` to see a summary of results. At the bottom, you should see a table like the following:
+#### **Option 1 – On GitHub.com**
+1. Go to your repository on GitHub.  
+2. Click the **Actions** tab at the top of the page. 
+3. Click on the topmost workflow. That will open a new page.  
+3. Open the most recent `run-autograding-tests` workflow run.  
+4. Scroll to find the **Autograding Reporter** section.  
+5. Expand it to see the detailed integration test results, including the table showing scores for each test.  The summary should look something like the following:
+
 
 | Test Runner Name                 | Test Score | Max Score |
 |-----------------------------------|------------|-----------|
@@ -439,6 +445,17 @@ Let's talk about how to view the results of the integration tests in GitHub Clas
 | test_cartesian_product_integration_strings_and_bools | 2 | 2 |
 | test_cartesian_product_integration_with_empty | 2 | 2 |
 | **Total:**                        | **18**     | **18**    |
+
+#### **Option 2 – Inside VS Code** (if you installed the GitHub Actions extension in Project 0)
+1. Click the **GitHub Actions** icon in the Activity Bar (left side of VS Code).  
+   - If you don’t see it, open the Extensions panel, search for **GitHub Actions** (publisher: GitHub), and install it.  
+2. In the **Workflows** list, select your repository if prompted.  
+3. Look for the most recent run of `run-autograding-tests`.  
+4. Click it to view the workflow jobs and their pass/fail status.  
+5. Click on the job named **Autograding tests** to view the log for the test run.  
+
+> **Note:** The **Autograding Reporter** step will show up in the list, but detailed output (such as the integration test score table) can’t be displayed directly in VS Code.  
+> To view the full table, hover over **Autograding Reporter** and click the **globe icon** that appears — this will open the GitHub web interface with the complete log.  
 
 ### 11.2 Integration Test Buckets
 Each project will have several integration tests. The integration tests are organized into **buckets**, which are subsets of the integration tests. Rather than assigning points for each test, points are assigned based on passing all tests in a given bucket. For example, for a project with two buckets you might see results like the following:
