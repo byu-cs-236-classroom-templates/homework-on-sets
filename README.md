@@ -8,24 +8,26 @@
   - [3.1 Deactivate Conda (if active)](#31-deactivate-conda-if-active)
   - [3.2 Create a Virtual Environment ](#32-create-a-virtual-environment-)
   - [3.3 Activate the Virtual Environment](#33-activate-the-virtual-environment)
-- [5 Configure project](#5-configure-project)
+- [5 Configure Project](#5-configure-project)
 - [6. Unit Tests for the Union Function](#6-unit-tests-for-the-union-function)
   - [Unit Tests and Integration Tests](#unit-tests-and-integration-tests)
   - [6.1 Types of Unit Tests](#61-types-of-unit-tests)
   - [6.2 Positive Test](#62-positive-test)
-  - [6.2 Negative Test](#62-negative-test)
-  - [6.3 TypeError Test](#63-typeerror-test)
-- [7 Run Tests from the Terminal](#7-run-tests-from-the-terminal)
-- [8 Running Tests in VS Code](#7-running-tests-in-vs-code)
+  - [6.3 Negative Test](#63-negative-test)
+  - [6.4 TypeError Test](#64-typeerror-test)
+- [7. Run Tests from the Terminal](#7-run-tests-from-the-terminal)
+- [8. Running Tests in VS Code](#8-running-tests-in-vs-code)
   - [8.1 Tell VS Code to Use the Correct Python Interpreter](#81-tell-vs-code-to-use-the-correct-python-interpreter)
-  - [8.2 Configure and Run Tests in VS Code](#72-configure-and-run-tests-in-vs-code)
-- [9 Understanding Failing Tests: Example with Intersection](#9-understanding-failing-tests-example-with-intersection)
+  - [8.2 Configure and Run Tests in VS Code](#82-configure-and-run-tests-in-vs-code)
+- [9. Understanding Failing Tests: Example with Intersection](#9-understanding-failing-tests-example-with-intersection)
   - [9.1 Positive Test Fails](#91-positive-test-fails)
   - [9.2 Negative Test Fails](#92-negative-test-fails)
   - [9.3 Type-Checking Tests Still Pass](#93-type-checking-tests-still-pass)
   - [9.4 Fix the implementation for the intersection function](#94-fix-the-implementation-for-the-intersection-function)
 - [10. Cartesian Product Tests](#10-cartesian-product-tests)
 - [11. Integration Tests and GitHub Classroom Autograding](#11-integration-tests-and-github-classroom-autograding)
+  - [11.1 Viewing Results in GitHub Classroom](#111-viewing-results-in-github-classroom)
+  - [11.2 Integration Test Buckets](#112-integration-test-buckets)
 
 ---
 
@@ -75,7 +77,7 @@ The key files and folders are:
 
 - **README.md** – this tutorial  
 - **pyproject.toml** – configuration file that defines project metadata 
-- **src/** - source directory containing the python module that defines various set operations
+- **src/** - source directory containing the Python module that defines various set operations
 - **src/homework1** - the folder for the `homework1` Python package
 - **tests/** –  directory where you'll use unit tests to verify your code automatically
 
@@ -86,7 +88,7 @@ The key files and folders are:
 Recall that a _virtual environment_ is a lightweight, local Python environment used to isolate project-specific packages from the default Python settings on your computer. Using a virtual environment prevents dependency conflicts and ensures that `pytest` behaves consistently across machines. The name of the virtual environment we will use is `venv`.
 
 ### 3.1 Deactivate Conda (if active)
-If the prompt in the integrated terminal starts with `(base)` or has some other environment indicator in parentheses `(myenv)` then deactive conda by typing
+If the prompt in the integrated terminal starts with `(base)` or has some other environment indicator in parentheses `(myenv)` then deactivate conda by typing
 
 ```bash
 conda deactivate
@@ -95,7 +97,7 @@ conda deactivate
 You'll know you've been successful if the `(base)` part of the prompt will have disappeared.
 
 ### 3.2 Create a Virtual Environment 
-You did this in Project 0, but it's helpful to review the steps because you'll have to do it for each project in the class. Make sure you are in your `CS236/` directory. What you type next depends on what type of computer you are using and how it is configured. Usually, PCs install the latest version of Python so that you can execute it by typing `python`. Macs usually ship with an old version of python and the command `python` points to that old version. To overcome this, you run python by typing `python3`. Thus,
+You did this in Project 0, but it's helpful to review the steps because you'll have to do it for each project in the class. Make sure you are in your `CS236/` directory. What you type next depends on what type of computer you are using and how it is configured. Usually, PCs install the latest version of Python so that you can execute it by typing `python`. Macs usually ship with an old version of Python, and the command `python` points to that old version. To overcome this, you run Python by typing `python3`. Thus,
 
 If on a PC then you should type 
 ```bash
@@ -108,7 +110,7 @@ python3 -m venv .venv
 This creates a hidden directory called `.venv` in your project folder containing a standalone Python environment.
 
 ### 3.3 Activate the Virtual Environment
-You now have to tell VSCode that you want to use the virtual environment. This is called _activating_ the environment. How you activate `venv` depends on your machine. 
+You now have to tell VS Code that you want to use the virtual environment. This is called _activating_ the environment. How you activate `venv` depends on your machine. 
 
 For a Windows machine running PowerShell,
 ```bash
@@ -126,7 +128,7 @@ You'll know that you've been successful if the name of the prompt changes and st
 ---
 
 
-## 5 Configure project
+## 5. Configure Project
 On most PCs, 
 ```bash
 pip install --editable ".[dev]"
@@ -137,7 +139,7 @@ On most Macs and Linux-based machines
 pip3 install --editable ".[dev]"
 ```
 
-The file `pyproject.toml` is used when we run the `install` command. Let's look at one part of the file.
+The file `pyproject.toml` is used when we run the `install` command. Let's look at one part of `pyproject.toml`.
 ```python
 [project.optional-dependencies]
 dev = [
@@ -151,21 +153,21 @@ The line `[project.optional-dependencies]` says that the project depends on some
 
 Note that the word **dev** from the install command `pip3 install --editable ".[dev]"` says that you are installing the package in **development** mode.
 
-Finally, note that this homework does not use a command line interface (CLI). If you have the energy, you can compare the `pyproject.toml` file for this homework with the one for Project 0 and notice the absence of any reference to CLI in the `.toml` file for this homework.
+Finally, note that this homework does not use a Command-Line Interface (CLI). If you have the energy, you can compare the `pyproject.toml` file for this homework with the one for Project 0 and notice the absence of any reference to CLI in the `.toml` file for this homework.
 
 ---
 
 ## 6. Unit Tests for the Union Function
 ### Unit Tests and Integration Tests
-Computer scientists distinguish between two types of tets:
+Computer scientists distinguish between two types of tests:
 - A **unit test** checks whether a _single, small part of the code_ (usually one function) works correctly in isolation.
 - An **integration test** checks whether _multiple parts of the program work together_ as expected.
 
 Many of you are probably used to thinking about testing in terms of integration tests because that is the kind of testing that has been done in your previous classes: does the code work right or not. Like your other classes, passing off projects in CS 236 will use integration tests, but you'll also be required to write _unit tests_. 
 
 It might seem like a pain to write unit tests, but there are three reasons to do so:
-- The unit tests required for this class are designed to help you understand how the mathematical ideas from class relate to the functions you implement in the projects
-- It is much easier to debug small pieces of code than entire programs. Since each project in the class builds on the previous project, you'll end up writing a larger program than many of you have written before, so testing small chunks of the program make sense
+- The unit tests in this class are designed to help you connect the mathematical concepts taught in class with the functions you implement in the projects.
+- Debugging small, isolated pieces of code is much easier than debugging an entire program.Since each project in the class builds on the previous project, you'll end up writing a larger program than many of you have written before, so testing small chunks of the program makes sense.
 - It is easier to modify code when you write unit tests because running the unit tests will tell you whether any small change you make introduces a new error.
 
 Our goal is to have you **write tests before you begin programming**, but we understand that some of you will be in "survivor mode" because of the demands of the semester and, consequently, will write the tests after you've written your code.  Try your best.
@@ -174,7 +176,7 @@ Our goal is to have you **write tests before you begin programming**, but we und
 There are three types of unit tests used in CS 236:
 - a **positive test** provides evidence that the _code produces the correct result_ for valid input because the test is based on a known math fact or expected behavior 
 - a **negative test** provides evidence that the _code does not produce an incorrect result_, and is used to detect logical errors or incorrect outcomes in your code
-- a **type-checking test** confirms that a function you've written _raises the correct kind of error_ when given input of the wrong type, and is used to "enforce contracts" so that your code only operates on they kinds of inputs you expect
+- a **type-checking test** confirms that a function you've written _raises the correct kind of error_ when given input of the wrong type, and is used to "enforce contracts" so that your code only operates on the kinds of inputs you expect
 
 In this assignment, we'll write type-checking tests, but later in the class we'll use the tool called `mypy` that helps us do _static type checking_ so that we don't have to write so many tests. The tool `mypy` was one of the packages specified in `pyproject.toml`.
 
@@ -204,13 +206,13 @@ def test_union_positive() -> None:
 ```
 Notice four things about the `test_union_positive()`.
 1. It's a function. All unit tests in the `pytest` framework are functions. When we run `pytest`, the function for each unit test is run.
-2. The `test_union_positive` function defines two sets, $A=\{1,2\}$ and $B=\{2,3\}$.  These two sets were chosen because we "did the math" above and know what to expect when we take the union of the functions.
+2. The `test_union_positive` function defines two sets, $A=\{1,2\}$ and $B=\{2,3\}$.  These two sets were chosen because we "did the math" above and know what to expect when we take the union of the sets.
 3. The `test_union_positive` function defines the expected output based on the known behavior of the mathematical union operation, $A\cup B = \{1,2,3\}$
 4. The `assert` statement in the code `assert union(A,B) == expected`
   checks whether the actual result of `union(A, B)` is equal to the expected result `{1, 2, 3}`. In other words, the `assert` calls the `union` function with the arguments $A$ and $B$, receives the return value $A\cup B$ and compares the returned value with what we expected to happen.  If the value returned by the function matches the expected result then **nothing happens**, which means that the test passes silently. If the value returned by the function does not match the expected result, Python raises an `AssertionError`, and the test fails. This will be captured by `pytest` and information about the failure will be given to us.
 
 
-### 6.2 Negative Test
+### 6.3 Negative Test
 
 A negative test checks that the function **does not** return an incorrect result. Let's make up something incorrect by defining $A=\{1\}$ and $B=\{1,2\}$, and then noting that $ A\cup B \neq \{1\}$.
 
@@ -227,13 +229,13 @@ def test_union_negative() -> None:
     assert union(A, B) != incorrect_result
 ```
 
-Notice that the same pieces are in place, with the only difference is that we check to make sure that the output from the function **does not equal** the incorrect result. If the output does not equal the incorrect result, nothing happens with the `assert` statement and we fail silently. If the output does equal the incorrect result, then the `assert` statement raises an `ExceptionError`, and pytests helps us see the error.
+This test follows the same structure as the positive test, but here `pytest` verifies that the output is not equal to an incorrect result. If the output differs from the incorrect result, the `assert` statement passes silently, which indicates that the function behaved as expected for this case. If the output matches the incorrect result, `pytest` raises an `AssertionError`, signaling that the function produced an incorrect value. `Pytest` captures that error and prints out information about the error.
 
 Note that I chose this test to check whether I accidentally implemented the union as an intersection, since the intersection of A and B is 
 $$A\cap B = \{1\}$$
 This test was designed to detect a logical error that might occur if we accidentally implement an intersection when we meant to implement a union.
 
-### 6.3 TypeError Test
+### 6.4 TypeError Test
 
 The function `test_union_invalid_input_type_1` makes sure that if you pass `union` an argument that is not a set then your `union` function detects that error. The `union` function in `src/homework1/set_operations.py` was only implemented for sets of integers. The type error tests check whether things other than integers are handled well by `union`.
 
@@ -263,7 +265,7 @@ What's happening is that the `union` function has code that makes sure the argum
     if not all(isinstance(x, int) for x in a | b):
         raise TypeError("All elements of the sets must be integers")
 ```
-The `raise` key word is the graceful way of saying "you messed up". The `pytest.raises` in the type check function `test_union_invalid_input_type_1` checks to see that the expected type of error is raised when you give `union` the wrong input type.
+The `raise` keyword is Python’s way of signaling that an error has occurred. The `pytest.raises` in the type check function `test_union_invalid_input_type_1` checks to see that the expected type of error is raised when you give `union` the wrong input type.
 
 **Ask your favorite AI tool** what that piece of code does? Explain that you are doing a tutorial on `pytest` and ask for help understanding what is going on with the `with` statement. You can even attach this `README.md` to your query so the AI tool has some more context. An example prompt is:
 
@@ -293,11 +295,11 @@ There are other functions in `tests/test_set_operations.py` that check other typ
 ---
 ## 7. Run Tests from the Terminal
 
-From the integrated terminal in VSCode, type
+From the integrated terminal in VS Code, type
 ```bash
 pytest
 ```
-You'll be given a list of which tests fail. Notice that none of the tests involving union appear in the terminal. That's because they all pass. Only tests that fail appear in the output when we run `pytest` from the command line. All successful tests pass silently. The bottom line in your terminal should look something like
+You'll be given a list of which tests fail. Notice that none of the tests involving union appear in the terminal. That's because they all pass. Tests that succeed only output `.` in the `pytest` output (unless verbose mode is enabled). Tests that fail show more output when we run `pytest` from the command line. Passing tests do not display detailed output (unless `pytest` is run in verbose mode). The final summary line in your terminal output should look something like:
 ```bash
 == 4 failed, 11 passed in 0.04s ==
 ```
@@ -309,21 +311,22 @@ You can run and debug `pytest` directly in VS Code.
 
 ### 8.1 Tell VS Code to Use the Correct Python Interpreter
 
-The first thing to do is tell VS Code that you are using the version of Python from the virtual environement. Go to `View` in the VS Code menu and select `Command Palette`. Select `Python:Interpreter` and choose the version of Python that has `.venv` in it.
+The first thing to do is tell VS Code that you are using the version of Python from the virtual environment. Go to `View` in the VS Code menu and select `Command Palette`. Select `Python: Select Interpreter` and choose the version of Python that has `.venv` in it. The correct version of the interpreter will look something like `Python 3.12.5 (.venv)`. If you don't see a version of the interpreter that includes `.venv` it means that you haven't installed or activated the virtual environment.
 
 
 ### 8.2 Configure and Run Tests in VS Code
 The second thing to do is to tell VS Code which testing tool you are going to use (and where to find the tests).
-5. **Open the Testing Panel**  
+
+- **Open the Testing Panel**  
    Click the beaker icon in the sidebar to open the **Testing panel**.
 
-6. **Configure VS Code for pytest (if needed)**  
+- **Configure VS Code for pytest (if needed)**  
    - From the `View` menu in VS Code, open the Command Palette (`Ctrl+Shift+P` or `⌘+Shift+P`)
    - Click on: `Python: Configure Tests`
    - Select `pytest`
    - Set the test folder to `tests/`
 
-7. **View Your Tests**  
+- **View Your Tests**  
    You should now see a list of test functions from `test_set_operations.py`. Each function has:
    - An open left triangle that pops up if you mouse over the function.
    - A red ❌ or green ✔ to indicate pass/fail status
@@ -389,7 +392,7 @@ The **TypeError tests** still pass as long as your function checks that:
 These tests are valuable because they help catch mistakes **even when other logic is broken**.
 
 
-### 8.4 Fix the implementation for the intersection function
+### 9.4 Fix the implementation for the intersection function
 Fix the code that causes the intersection function to fail the tests. Rerun the test to see if the tests now pass. 
 
 ---
@@ -401,14 +404,60 @@ Use the tests to diagnose why the Cartesian product function fails. The code inc
 ---
 
 ## 11. Integration Tests and GitHub Classroom Autograding
+GitHub Classroom can be set up to run tests automatically. CS 236 will use this capability to automatically evaluate whether your code works. All integration tests will be run automatically in GitHub Classroom when you commit your repo.
 
-TODO: Fix this.
-
-When you commit and push your code to GitHub Classroom, we have configured the repository so that **integration tests** run automatically on GitHub's servers. 
-
-This means:
+This semester, CS 236 will provide you the same integration tests that will be run in Github in the repository you clone for each project. This means:
 - You can run integration tests locally before committing to ensure they pass.
 - When you push your changes, GitHub Classroom will run the same integration tests remotely.
-- You can view the results in the "Actions" tab of your GitHub repository.
+- You can view the results of your tests in GitHub Classroom.
 
-This setup ensures that your code works not only on your machine but also in a clean, standardized environment, which helps catch environment-specific issues.
+### 11.1 Viewing Results in GitHub Classroom
+Let's talk about how to view the results of the integration tests in GitHub Classroom. Once you've fixed the errors in the intersection and Cartesian product functions, run `pytest` and confirm that all tests pass. 
+
+**Push your repo to GitHub** using the steps shown in Project 0. Here are the steps for your review.
+
+  1. Modify your code
+  2. Stage your changes (`git add`)
+  3. Commit those changes (`git commit`)
+  4. Push those commits to GitHub (`git push` or **Sync** in VS Code)
+
+**Navigate to GitHub** and open the repo for Homework 1. At the top of the webpage, click on _Actions_. That will take you to a page that shows a log of all the things that happened on GitHub after you've committed your repo.
+
+**Click on top entry**, which might start with something like `Merge branch main ...`.  That will take you to a page that includes the results of the autotests.
+
+**Review test results**. You should see a green check mark next to `run-autograding-tests` if your code passed all the tests. You can click on `run-autograding-tests` to see more information. Click on `Autograding Reporter` to see a summary of results. At the bottom, you should see a table like the following:
+
+| Test Runner Name                 | Test Score | Max Score |
+|-----------------------------------|------------|-----------|
+| test_union_integration_disjoint   | 2          | 2         |
+| test_union_integration_overlap    | 2          | 2         |
+| test_union_integration_with_empty | 2          | 2         |
+| test_intersection_integration_basic | 2        | 2         |
+| test_intersection_integration_disjoint | 2    | 2         |
+| test_intersection_integration_with_empty | 2 | 2         |
+| test_cartesian_product_integration_ints_and_strings | 2 | 2 |
+| test_cartesian_product_integration_strings_and_bools | 2 | 2 |
+| test_cartesian_product_integration_with_empty | 2 | 2 |
+| **Total:**                        | **18**     | **18**    |
+
+### 11.2 Integration Test Buckets
+Each project will have several integration tests. The integration tests are organized into **buckets**, which are subsets of the integration tests. Rather than assigning points for each test, points are assigned based on passing all tests in a given bucket. For example, for a project with two buckets you might see results like the following:
+
+| Test Runner Name | Test Score | Max Score |
+|------------------|------------|-----------|
+| bucket-80        | 80         | 80        |
+| bucket-100       | 20         | 20        |
+| **Total:**       | **100**    | **100**   |
+
+The reason tests are grouped into buckets is because each project in CS 236 builds on the previous project. That means that the code for Project 1 has to work before the code for Project 2 will be able to work. We've tried to organize the tests so that if you pass all tests in `bucket-80` you can make good progress on the subsequent project even if your code isn't perfect. You might have to go back and fix a few things in your code that pop-up in the subsequent project, but it won't be a catastrophe.
+
+That means that the tests in `bucket-80` are usually easier to pass than the tests in `bucket-100`.
+
+If you'd like to see more about how the buckets work, open up your Project 0 again. Navigate to the `tests` folder and notice the two files
+- `test_passoff_80.py`
+- `test_passoff_100.py`
+These two files sequence the testing operations so that all tests in each bucket are run. If you open the `tests/resources` folder, you'll see two folders: `80` and `100`. When you open the folders, you'll see two types of files: inputs and answers. The inputs are what is passed to your code, and the answers are what your code should generate. 
+
+That means that for each project, you will know the set of inputs used in the integration tests, and you will also have available the answer that your code should generate.
+
+If you navigate to your GitHub repo for Project 0, click on `Actions`, and open up the test results, you should see a table showing that you passed all of the tests in both bucket 80 and bucket 100.
