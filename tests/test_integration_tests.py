@@ -1,11 +1,11 @@
-import pytest
-from homework1.set_operations import union, intersection, cartesian_product
+from homework1.set_operations import cartesian_product, intersection, union
 
 #############################
 ##     Integration Tests   ##
 #############################
 
 # --- UNION (integers) --------------------------------------------------------
+
 
 def test_union_integration_disjoint() -> None:
     # Function inputs
@@ -45,6 +45,7 @@ def test_union_integration_with_empty() -> None:
 
 # --- INTERSECTION (integers) -------------------------------------------------
 
+
 def test_intersection_integration_basic() -> None:
     # Function inputs
     A: set[int] = {1, 2, 3, 4}
@@ -83,6 +84,7 @@ def test_intersection_integration_with_empty() -> None:
 
 # --- CARTESIAN PRODUCT (mixed types) ----------------------------------------
 
+
 def test_cartesian_product_integration_ints_and_strings() -> None:
     # Function inputs
     A: set[int] = {1, 2}
@@ -101,7 +103,12 @@ def test_cartesian_product_integration_strings_and_bools() -> None:
     B: set[bool] = {True, False}
 
     # Expected output
-    expected: set[tuple[str, bool]] = {("x", True), ("x", False), ("y", True), ("y", False)}
+    expected: set[tuple[str, bool]] = {
+        ("x", True),
+        ("x", False),
+        ("y", True),
+        ("y", False),
+    }
 
     # Assert that the cartesian_product function works correctly
     assert cartesian_product(A, B) == expected
