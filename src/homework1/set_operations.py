@@ -32,7 +32,7 @@ def intersection(a: set[int], b: set[int]) -> set[int]:
         raise TypeError("All elements of the sets must be integers")
 
     # Return the intersection of the two sets
-    # Note: This implementation is incorrect because it uses intersection instead of union
+    # Note: This implementation is incorrect because it uses union instead of intersection
     # It should return the intersection of the two sets
     return a | b
 

@@ -183,12 +183,8 @@ In this assignment, we'll write type-checking tests, but later in the class we'l
 
 
 ### 6.2 Positive Test
-Suppose that we are given two sets $ A = \{1, 2\} $  and $ B = \{2, 3\} $. The union of two sets is the collection of all elements that are either in the first set or in the second or both. Thus,
-
-$$
-    A \cup B = \{1, 2, 3\}
-$$ 
-If we write a function called `union` that tries to implement the _union_ set operation then it should output the set $\{1,2,3\}$ if its inputs are set $A$ and set $B$. This is the basis of the positive test.
+Suppose that we are given two sets _A = {1, 2}_  and _B = {2, 3}_. The union of two sets is the collection of all elements that are either in the first set or in the second or both. Thus, _A ∪ B = {1, 2, 3}_.
+If we write a function called `union` that tries to implement the _union_ set operation then it should output the set _{1,2,3}_ if its inputs are set _A_ and set _B_. This is the basis of the positive test.
 
 Open the file `tests/test_set_operations.py` and look at the `test_union_positive()` function.
 
@@ -206,15 +202,15 @@ def test_union_positive() -> None:
 ```
 Notice four things about the `test_union_positive()`.
 1. It's a function. All unit tests in the `pytest` framework are functions. When we run `pytest`, the function for each unit test is run.
-2. The `test_union_positive` function defines two sets, $A=\{1,2\}$ and $B=\{2,3\}$.  These two sets were chosen because we "did the math" above and know what to expect when we take the union of the sets.
-3. The `test_union_positive` function defines the expected output based on the known behavior of the mathematical union operation, $A\cup B = \{1,2,3\}$
+2. The `test_union_positive` function defines two sets, _A={1,2}_ and _B={2,3}_.  These two sets were chosen because we "did the math" above and know what to expect when we take the union of the sets.
+3. The `test_union_positive` function defines the expected output based on the known behavior of the mathematical union operation, _A ∪ B = {1,2,3}_.
 4. The `assert` statement in the code `assert union(A,B) == expected`
   checks whether the actual result of `union(A, B)` is equal to the expected result `{1, 2, 3}`. In other words, the `assert` calls the `union` function with the arguments $A$ and $B$, receives the return value $A\cup B$ and compares the returned value with what we expected to happen.  If the value returned by the function matches the expected result then **nothing happens**, which means that the test passes silently. If the value returned by the function does not match the expected result, Python raises an `AssertionError`, and the test fails. This will be captured by `pytest` and information about the failure will be given to us.
 
 
 ### 6.3 Negative Test
 
-A negative test checks that the function **does not** return an incorrect result. Let's make up something incorrect by defining $A=\{1\}$ and $B=\{1,2\}$, and then noting that $ A\cup B \neq \{1\}$.
+A negative test checks that the function **does not** return an incorrect result. Let's make up something incorrect by defining _A = {1}_ and _B = {2}_, and then noting that _A ∪ B ≠ {1}_.
 
 ```python
 def test_union_negative() -> None:
@@ -231,8 +227,7 @@ def test_union_negative() -> None:
 
 This test follows the same structure as the positive test, but here `pytest` verifies that the output is not equal to an incorrect result. If the output differs from the incorrect result, the `assert` statement passes silently, which indicates that the function behaved as expected for this case. If the output matches the incorrect result, `pytest` raises an `AssertionError`, signaling that the function produced an incorrect value. `Pytest` captures that error and prints out information about the error.
 
-Note that I chose this test to check whether I accidentally implemented the union as an intersection, since the intersection of A and B is 
-$$A\cap B = \{1\}$$
+Note that I chose this test to check whether I accidentally implemented the union as an intersection, since the intersection of _A_ and _B_ is _A ∩ B = {1}_
 This test was designed to detect a logical error that might occur if we accidentally implement an intersection when we meant to implement a union.
 
 ### 6.4 TypeError Test
@@ -267,7 +262,7 @@ What's happening is that the `union` function has code that makes sure the argum
 ```
 The `raise` keyword is Python’s way of signaling that an error has occurred. The `pytest.raises` in the type check function `test_union_invalid_input_type_1` checks to see that the expected type of error is raised when you give `union` the wrong input type.
 
-**Ask your favorite AI tool** what that piece of code does? Explain that you are doing a tutorial on `pytest` and ask for help understanding what is going on with the `with` statement. You can even attach this `README.md` to your query so the AI tool has some more context. An example prompt is:
+**Ask your favorite AI tool** what that piece of code does. Explain that you are doing a tutorial on `pytest` and ask for help understanding what is going on with the `with` statement. You can even attach this `README.md` to your query so the AI tool has some more context. An example prompt is:
 
 ```text
 What does 
